@@ -22,21 +22,21 @@ HaloVision watches the world through a live camera stream, understands what is i
 
 ```
    Browser (React + Vite)                     FastAPI backend (:8000)
-┌───────────────────────┐   WebRTC / WS  ┌──────────────────────────────────────┐
-│  live video + HUD      │◄─────────────►│  Streaming endpoints (/ws, /rtc)     │
-│  speech controls       │               │        │                             │
-└────────────────────────┘               │        ▼                             │
-                                          │  PerceptionSystem                   │
-                                          │   ├─ Inference  (YOLO26 95-class)   │
+┌───────────────────────┐   WebRTC / WS   ┌──────────────────────────────────────┐
+│  live video + HUD      │◄─────────────► │  Streaming endpoints (/ws, /rtc)     │
+│  speech controls       │                │        │                             │
+└────────────────────────┘                │        ▼                             │
+                                          │  PerceptionSystem                    │
+                                          │   ├─ Inference  (YOLO26 95-class)    │
                                           │   ├─ Tracker    (boxes over time)    │
-                                          │   └─ Depth      (MiDaS ONNX)        │
-                                          │        │  detections + depth        │
+                                          │   └─ Depth      (MiDaS ONNX)         │
+                                          │        │  detections + depth         │
                                           │        ▼                             │
                                           │  EventBus ─► RuleEngine              │
                                           │   (named     (cooldowns, modes,      │
                                           │    events)    threat priority)       │
-                                          │                 │ speech intents    │
-                                          │                 ▼                   │
+                                          │                 │ speech intents     │
+                                          │                 ▼                    │
                                           │  SpeechScheduler ─► TTS (Azure)      │
                                           └──────────────────────────────────────┘
 ```
